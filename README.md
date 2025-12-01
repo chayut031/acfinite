@@ -1,2 +1,2 @@
 # acfinite
-Acfinite Finance &amp; Accounting
+Acfinite Accounting
