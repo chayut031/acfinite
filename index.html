@@ -176,10 +176,13 @@
     }
 
     .brand-name strong {
+      display: block;
+      overflow: hidden;
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 0;
       white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .brand-name span {
@@ -1627,9 +1630,13 @@
       }
 
       .brand-name span,
-      .icon-link,
       .quote-btn {
         display: none;
+      }
+
+      .icon-link {
+        width: 34px;
+        height: 34px;
       }
 
       .brand img {
@@ -1674,10 +1681,25 @@
     }
 
     @media (max-width: 420px) {
+      .nav-actions {
+        gap: 6px;
+      }
+
       .nav-actions .btn {
         min-height: 38px;
         padding: 0 12px;
         font-size: 13px;
+      }
+
+      .icon-link {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+      }
+
+      .brand-name strong {
+        font-size: 13px;
+        max-width: 128px;
       }
 
       .hero-actions .btn {
@@ -1686,6 +1708,12 @@
 
       .board-body {
         padding: 14px;
+      }
+    }
+
+    @media (max-width: 359px) {
+      .icon-link {
+        display: none;
       }
     }
   </style>
