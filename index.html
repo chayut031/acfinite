@@ -569,6 +569,24 @@
       margin-top: 64px;
     }
 
+    .doc-stack-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .doc-stack-label::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--grad-text);
+    }
+
     .doc-stack {
       position: relative;
       width: 100%;
@@ -1782,12 +1800,13 @@
           </div>
         </div>
 
-        <div class="hero-visual enter-right" aria-label="ตัวอย่างเอกสารที่เราจัดทำให้ลูกค้า">
+        <div class="hero-visual enter-right" aria-label="ประเภทเอกสารที่เราดูแลให้ลูกค้า">
           <div class="blob blob-a" aria-hidden="true"></div>
           <div class="blob blob-b" aria-hidden="true"></div>
 
           <div class="doc-stack-wrap">
-            <div class="doc-stack" id="docStack" role="button" tabindex="0" aria-label="แตะที่เอกสารเพื่อดูตัวอย่างแบบอื่น">
+            <p class="doc-stack-label">ประเภทงานที่เราดูแลให้ลูกค้า</p>
+            <div class="doc-stack" id="docStack" role="button" tabindex="0" aria-label="แตะที่เอกสารเพื่อดูประเภทงานอื่น">
               <article class="doc-page pos-front">
                 <div class="doc-page-top">
                   <img src="logo.png" alt="" class="doc-logo" />
@@ -1852,7 +1871,7 @@
 
             <div class="doc-stack-hint">
               <i class="fa-solid fa-hand-pointer"></i>
-              แตะที่เอกสารเพื่อดูตัวอย่างแบบอื่น
+              แตะที่เอกสารเพื่อดูประเภทงานอื่น
             </div>
           </div>
 
@@ -1917,8 +1936,8 @@
         <div class="terminal-grid">
           <div class="terminal-card">
             <div class="terminal-card-head">
-              <span>ตัวอย่างสรุปผลประกอบการรายไตรมาส</span>
-              <strong>Q2 · ตัวอย่าง</strong>
+              <span>ภาพประกอบแนวโน้มผลประกอบการ</span>
+              <strong>Illustrative</strong>
             </div>
             <svg class="line-chart" viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true">
               <defs>
