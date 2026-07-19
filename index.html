@@ -560,6 +560,31 @@
       }
     }
 
+    .report-stack {
+      position: relative;
+    }
+
+    .report-stack::before,
+    .report-stack::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+    }
+
+    .report-stack::before {
+      transform: translate(10px, 16px) rotate(2deg);
+      opacity: 0.55;
+    }
+
+    .report-stack::after {
+      transform: translate(5px, 8px) rotate(1deg);
+      opacity: 0.8;
+    }
+
     .report-board {
       position: relative;
       z-index: 1;
@@ -615,6 +640,19 @@
       color: #1d3357;
       font-size: 12px;
       font-weight: 600;
+      opacity: 0;
+      animation: stamp-in 520ms cubic-bezier(0.34, 1.56, 0.64, 1) 860ms forwards;
+    }
+
+    @keyframes stamp-in {
+      0% {
+        opacity: 0;
+        transform: scale(1.5) rotate(-8deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
     }
 
     .board-body {
@@ -1766,60 +1804,62 @@
           </div>
         </div>
 
-        <div class="hero-visual enter-right" aria-label="ตัวอย่างภาพรวมรายงานบัญชี">
+        <div class="hero-visual enter-right" aria-label="ตัวอย่างรายงานสรุปที่จัดทำให้ลูกค้า">
           <div class="blob blob-a" aria-hidden="true"></div>
           <div class="blob blob-b" aria-hidden="true"></div>
-          <div class="report-board">
-            <div class="board-head">
-              <div class="board-brand">
-                <img src="logo.png" alt="" />
-                <div>
-                  <strong>Monthly snapshot</strong><br />
-                  <span>ตัวอย่างภาพรวมสำหรับเจ้าของกิจการ</span>
+          <div class="report-stack">
+            <div class="report-board">
+              <div class="board-head">
+                <div class="board-brand">
+                  <img src="logo.png" alt="" />
+                  <div>
+                    <strong>รายงานสรุปรายเดือน</strong><br />
+                    <span>ตัวอย่างรายงานที่เราจัดทำให้ลูกค้าทุกเดือน</span>
+                  </div>
                 </div>
-              </div>
-              <span class="status-pill">พร้อมยื่น</span>
-            </div>
-
-            <div class="board-body">
-              <div class="metric-grid">
-                <div class="metric">
-                  <span>ยอดขายเดือนนี้</span>
-                  <strong data-count="420000">0</strong>
-                  <small>บาท จากเอกสารขาย</small>
-                </div>
-                <div class="metric">
-                  <span>ภาษีที่ต้องเตรียม</span>
-                  <strong data-count="21000">0</strong>
-                  <small>แจ้งก่อนกำหนดชำระ</small>
-                </div>
-                <div class="metric">
-                  <span>เอกสารที่รับแล้ว</span>
-                  <strong data-count="180">0</strong>
-                  <small>ใบซื้อ ขาย และค่าใช้จ่าย</small>
-                </div>
-                <div class="metric">
-                  <span>สถานะงวดนี้</span>
-                  <strong>Review</strong>
-                  <small>รอตรวจรอบสุดท้าย</small>
-                </div>
+                <span class="status-pill">พร้อมยื่น</span>
               </div>
 
-              <div class="timeline">
-                <div class="timeline-row">
-                  <strong>ภ.พ.30</strong>
-                  <span>ตรวจยอดขายและภาษีซื้อ</span>
-                  <span class="mini-badge is-doing">กำลังทำ</span>
+              <div class="board-body">
+                <div class="metric-grid">
+                  <div class="metric enter" style="animation-delay: 560ms">
+                    <span>ยอดขายเดือนนี้</span>
+                    <strong>420,000</strong>
+                    <small>บาท จากเอกสารขาย</small>
+                  </div>
+                  <div class="metric enter" style="animation-delay: 630ms">
+                    <span>ภาษีที่ต้องเตรียม</span>
+                    <strong>21,000</strong>
+                    <small>แจ้งก่อนกำหนดชำระ</small>
+                  </div>
+                  <div class="metric enter" style="animation-delay: 700ms">
+                    <span>เอกสารที่รับแล้ว</span>
+                    <strong>180</strong>
+                    <small>ใบซื้อ ขาย และค่าใช้จ่าย</small>
+                  </div>
+                  <div class="metric enter" style="animation-delay: 770ms">
+                    <span>สถานะงวดนี้</span>
+                    <strong>Review</strong>
+                    <small>รอตรวจรอบสุดท้าย</small>
+                  </div>
                 </div>
-                <div class="timeline-row">
-                  <strong>ภงด.53</strong>
-                  <span>สรุปหัก ณ ที่จ่ายจากเอกสารจ่าย</span>
-                  <span class="mini-badge is-done">ครบ</span>
-                </div>
-                <div class="timeline-row">
-                  <strong>รายงาน</strong>
-                  <span>ยอดขาย ค่าใช้จ่าย และกำไรเบื้องต้น</span>
-                  <span class="mini-badge is-sent">ส่งให้ดู</span>
+
+                <div class="timeline">
+                  <div class="timeline-row enter" style="animation-delay: 900ms">
+                    <strong>ภ.พ.30</strong>
+                    <span>ตรวจยอดขายและภาษีซื้อ</span>
+                    <span class="mini-badge is-doing">กำลังทำ</span>
+                  </div>
+                  <div class="timeline-row enter" style="animation-delay: 970ms">
+                    <strong>ภงด.53</strong>
+                    <span>สรุปหัก ณ ที่จ่ายจากเอกสารจ่าย</span>
+                    <span class="mini-badge is-done">ครบ</span>
+                  </div>
+                  <div class="timeline-row enter" style="animation-delay: 1040ms">
+                    <strong>รายงาน</strong>
+                    <span>ยอดขาย ค่าใช้จ่าย และกำไรเบื้องต้น</span>
+                    <span class="mini-badge is-sent">ส่งให้ดู</span>
+                  </div>
                 </div>
               </div>
             </div>
