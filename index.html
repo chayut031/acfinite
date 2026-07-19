@@ -569,22 +569,84 @@
       margin-top: 64px;
     }
 
+    .doc-stack-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
     .doc-stack-label {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 4px;
       color: var(--muted);
       font-size: 13px;
       font-weight: 600;
     }
 
-    .doc-stack-label::before {
+    .doc-stack-label::before,
+    .doc-stack-label::after {
       content: "";
       width: 18px;
       height: 2px;
       border-radius: 2px;
       background: var(--grad-text);
+    }
+
+    .doc-stack-title {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      background: linear-gradient(90deg, var(--sea-dark), var(--sky), var(--sea-dark));
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: title-sheen 7s ease-in-out infinite;
+      transition: opacity 260ms ease, transform 260ms ease;
+    }
+
+    .doc-stack-title.is-changing {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+
+    @keyframes title-sheen {
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .doc-stack-title {
+        animation: none;
+      }
+    }
+
+    .doc-stack-segments {
+      display: inline-flex;
+      gap: 6px;
+    }
+
+    .doc-stack-segments .seg {
+      width: 26px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--line);
+      transition: background var(--ease-out);
+    }
+
+    .doc-stack-segments .seg.is-active {
+      background: var(--sea);
     }
 
     .doc-stack {
@@ -634,34 +696,85 @@
       box-shadow: none;
     }
 
-    .doc-page-top {
+    .doc-letterhead {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 32px;
+      gap: 12px;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .doc-letterhead-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
     }
 
     .doc-logo {
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       object-fit: contain;
-      opacity: 0.8;
+      opacity: 0.85;
+      flex: 0 0 auto;
+    }
+
+    .doc-letterhead-lines span {
+      display: block;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--mist);
+    }
+
+    .doc-letterhead-lines span:first-child {
+      width: 84px;
+      margin-bottom: 5px;
+      background: rgba(18, 22, 31, 0.16);
+    }
+
+    .doc-letterhead-lines span:last-child {
+      width: 56px;
     }
 
     .doc-tag {
+      flex: 0 0 auto;
       padding: 5px 12px;
       border-radius: 999px;
       background: var(--mist);
       color: var(--muted);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .doc-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .doc-meta span {
+      height: 5px;
+      border-radius: 3px;
+      background: var(--mist);
+    }
+
+    .doc-meta span:first-child {
+      width: 34%;
+    }
+
+    .doc-meta span:last-child {
+      width: 20%;
     }
 
     .doc-title {
-      margin-bottom: 26px;
-      font-size: 30px;
+      margin-bottom: 20px;
+      font-size: 26px;
       font-weight: 600;
       line-height: 1.2;
       letter-spacing: -0.01em;
@@ -673,27 +786,64 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      gap: 22px;
+      gap: 20px;
     }
 
-    .doc-bars {
+    .doc-table {
+      display: grid;
+      gap: 12px;
+    }
+
+    .doc-table-row {
       display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      height: 120px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
 
-    .doc-bars span {
+    .doc-table-row .cell-label {
+      height: 6px;
+      border-radius: 3px;
+      background: var(--mist);
       flex: 1;
-      border-radius: 4px 4px 0 0;
+      max-width: 55%;
+    }
+
+    .doc-table-row .cell-amount {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(44, 74, 124, 0.2);
+      width: 22%;
+    }
+
+    .doc-table-row.head .cell-label,
+    .doc-table-row.head .cell-amount {
+      height: 5px;
+      background: rgba(18, 22, 31, 0.14);
+    }
+
+    .doc-table-divider {
+      height: 1px;
+      background: var(--line);
+    }
+
+    .doc-table-row.total .cell-label {
+      height: 8px;
+      background: rgba(18, 22, 31, 0.2);
+      max-width: 34%;
+    }
+
+    .doc-table-row.total .cell-amount {
+      height: 8px;
+      width: 26%;
       background: var(--sea);
-      opacity: 0.22;
+      opacity: 0.55;
     }
 
     .doc-lines span {
       display: block;
-      height: 7px;
-      margin-bottom: 10px;
+      height: 6px;
+      margin-bottom: 9px;
       border-radius: 3px;
       background: var(--mist);
     }
@@ -702,9 +852,37 @@
       width: 60%;
     }
 
+    .doc-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .doc-field {
+      height: 40px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .doc-field span {
+      display: block;
+      height: 5px;
+      width: 55%;
+      border-radius: 3px;
+      background: var(--mist);
+    }
+
+    .doc-field span + span {
+      margin-top: 7px;
+      width: 75%;
+      background: rgba(44, 74, 124, 0.16);
+    }
+
     .doc-checklist {
       display: grid;
-      gap: 18px;
+      gap: 14px;
     }
 
     .doc-check-row {
@@ -714,17 +892,22 @@
     }
 
     .doc-check {
-      width: 19px;
-      height: 19px;
+      width: 17px;
+      height: 17px;
       flex: 0 0 auto;
-      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
       border: 1.5px solid var(--sea);
-      opacity: 0.5;
+      color: var(--sea);
+      font-size: 9px;
+      opacity: 0.55;
     }
 
     .doc-check-line {
       flex: 1;
-      height: 7px;
+      height: 6px;
       border-radius: 3px;
       background: var(--mist);
     }
@@ -733,11 +916,94 @@
       max-width: 60%;
     }
 
+    .doc-stamp {
+      position: absolute;
+      right: 30px;
+      bottom: 92px;
+      width: 74px;
+      height: 74px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border: 2px dashed rgba(44, 74, 124, 0.45);
+      border-radius: 50%;
+      color: rgba(44, 74, 124, 0.55);
+      font-size: 15px;
+      transform: rotate(-12deg);
+    }
+
+    .doc-stamp small {
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
     .doc-chart {
       width: 100%;
-      height: 90px;
+      height: 84px;
       color: var(--sea);
       opacity: 0.55;
+    }
+
+    .doc-legend {
+      display: flex;
+      gap: 16px;
+    }
+
+    .doc-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .doc-legend i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--sea);
+      opacity: 0.5;
+    }
+
+    .doc-legend i.alt {
+      opacity: 0.22;
+    }
+
+    .doc-legend b {
+      display: block;
+      width: 38px;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--mist);
+    }
+
+    .doc-sign {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .doc-sign div {
+      flex: 1;
+      max-width: 42%;
+    }
+
+    .doc-sign .sign-line {
+      height: 1px;
+      margin-bottom: 7px;
+      background: rgba(18, 22, 31, 0.25);
+    }
+
+    .doc-sign .sign-label {
+      display: block;
+      height: 5px;
+      width: 70%;
+      border-radius: 3px;
+      background: var(--mist);
     }
 
     .doc-stack-hint {
@@ -1805,50 +2071,84 @@
           <div class="blob blob-b" aria-hidden="true"></div>
 
           <div class="doc-stack-wrap">
-            <p class="doc-stack-label">ประเภทงานที่เราดูแลให้ลูกค้า</p>
+            <div class="doc-stack-head">
+              <p class="doc-stack-label">ประเภทงานที่เราดูแลให้ลูกค้า</p>
+              <h3 class="doc-stack-title" id="docStackTitle">งบการเงินรายเดือน</h3>
+              <div class="doc-stack-segments" aria-hidden="true">
+                <span class="seg is-active"></span>
+                <span class="seg"></span>
+                <span class="seg"></span>
+              </div>
+            </div>
+
             <div class="doc-stack" id="docStack" role="button" tabindex="0" aria-label="แตะที่เอกสารเพื่อดูประเภทงานอื่น">
-              <article class="doc-page pos-front">
-                <div class="doc-page-top">
-                  <img src="logo.png" alt="" class="doc-logo" />
+              <article class="doc-page pos-front" data-doc-name="งบการเงินรายเดือน">
+                <div class="doc-letterhead">
+                  <div class="doc-letterhead-brand">
+                    <img src="logo.png" alt="" class="doc-logo" />
+                    <div class="doc-letterhead-lines"><span></span><span></span></div>
+                  </div>
                   <span class="doc-tag">Prepared Monthly</span>
                 </div>
+                <div class="doc-meta"><span></span><span></span></div>
                 <h3 class="doc-title">Financial<br />Statement</h3>
                 <div class="doc-sketch">
-                  <div class="doc-bars">
-                    <span style="height: 38%"></span>
-                    <span style="height: 62%"></span>
-                    <span style="height: 48%"></span>
-                    <span style="height: 80%"></span>
-                    <span style="height: 66%"></span>
+                  <div class="doc-table">
+                    <div class="doc-table-row head"><span class="cell-label"></span><span class="cell-amount"></span></div>
+                    <div class="doc-table-row"><span class="cell-label"></span><span class="cell-amount"></span></div>
+                    <div class="doc-table-row"><span class="cell-label" style="max-width: 46%"></span><span class="cell-amount"></span></div>
+                    <div class="doc-table-row"><span class="cell-label" style="max-width: 51%"></span><span class="cell-amount"></span></div>
+                    <div class="doc-table-divider"></div>
+                    <div class="doc-table-row total"><span class="cell-label"></span><span class="cell-amount"></span></div>
                   </div>
-                  <div class="doc-lines">
-                    <span></span>
-                    <span class="short"></span>
+                  <div class="doc-sign">
+                    <div><div class="sign-line"></div><span class="sign-label"></span></div>
+                    <div><div class="sign-line"></div><span class="sign-label"></span></div>
                   </div>
                 </div>
               </article>
 
-              <article class="doc-page pos-mid">
-                <div class="doc-page-top">
-                  <img src="logo.png" alt="" class="doc-logo" />
-                  <span class="doc-tag">Reviewed Quarterly</span>
+              <article class="doc-page pos-mid" data-doc-name="แบบยื่นภาษี">
+                <div class="doc-letterhead">
+                  <div class="doc-letterhead-brand">
+                    <img src="logo.png" alt="" class="doc-logo" />
+                    <div class="doc-letterhead-lines"><span></span><span></span></div>
+                  </div>
+                  <span class="doc-tag">Filed On Time</span>
                 </div>
+                <div class="doc-meta"><span></span><span></span></div>
                 <h3 class="doc-title">Tax<br />Filing</h3>
                 <div class="doc-sketch">
-                  <div class="doc-checklist">
-                    <div class="doc-check-row"><span class="doc-check"></span><span class="doc-check-line"></span></div>
-                    <div class="doc-check-row"><span class="doc-check"></span><span class="doc-check-line"></span></div>
-                    <div class="doc-check-row"><span class="doc-check"></span><span class="doc-check-line short"></span></div>
-                    <div class="doc-check-row"><span class="doc-check"></span><span class="doc-check-line"></span></div>
+                  <div class="doc-fields">
+                    <div class="doc-field"><span></span><span></span></div>
+                    <div class="doc-field"><span></span><span></span></div>
+                    <div class="doc-field"><span></span><span></span></div>
+                    <div class="doc-field"><span></span><span></span></div>
                   </div>
+                  <div class="doc-checklist">
+                    <div class="doc-check-row"><span class="doc-check"><i class="fa-solid fa-check"></i></span><span class="doc-check-line"></span></div>
+                    <div class="doc-check-row"><span class="doc-check"><i class="fa-solid fa-check"></i></span><span class="doc-check-line short"></span></div>
+                  </div>
+                  <div class="doc-sign">
+                    <div><div class="sign-line"></div><span class="sign-label"></span></div>
+                    <div><div class="sign-line"></div><span class="sign-label"></span></div>
+                  </div>
+                </div>
+                <div class="doc-stamp" aria-hidden="true">
+                  <i class="fa-solid fa-check"></i>
+                  <small>Filed</small>
                 </div>
               </article>
 
-              <article class="doc-page pos-back">
-                <div class="doc-page-top">
-                  <img src="logo.png" alt="" class="doc-logo" />
+              <article class="doc-page pos-back" data-doc-name="รายงานวิเคราะห์ธุรกิจ">
+                <div class="doc-letterhead">
+                  <div class="doc-letterhead-brand">
+                    <img src="logo.png" alt="" class="doc-logo" />
+                    <div class="doc-letterhead-lines"><span></span><span></span></div>
+                  </div>
                   <span class="doc-tag">Prepared for Clients</span>
                 </div>
+                <div class="doc-meta"><span></span><span></span></div>
                 <h3 class="doc-title">Business<br />Report</h3>
                 <div class="doc-sketch">
                   <svg class="doc-chart" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true">
@@ -1861,9 +2161,18 @@
                       stroke-linejoin="round"
                     />
                   </svg>
+                  <div class="doc-legend">
+                    <span><i></i><b></b></span>
+                    <span><i class="alt"></i><b></b></span>
+                  </div>
                   <div class="doc-lines">
                     <span></span>
+                    <span></span>
                     <span class="short"></span>
+                  </div>
+                  <div class="doc-sign">
+                    <div><div class="sign-line"></div><span class="sign-label"></span></div>
+                    <div><div class="sign-line"></div><span class="sign-label"></span></div>
                   </div>
                 </div>
               </article>
@@ -2309,6 +2618,8 @@
           return i;
         });
         var docPosClasses = ["pos-front", "pos-mid", "pos-back"];
+        var docTitleEl = document.getElementById("docStackTitle");
+        var docSegments = document.querySelectorAll(".doc-stack-segments .seg");
 
         var applyDocOrder = function () {
           docOrder.forEach(function (cardIndex, posIndex) {
@@ -2316,6 +2627,24 @@
             el.classList.remove("pos-front", "pos-mid", "pos-back");
             el.classList.add(docPosClasses[posIndex]);
           });
+
+          var frontIndex = docOrder[0];
+          docSegments.forEach(function (seg, i) {
+            seg.classList.toggle("is-active", i === frontIndex);
+          });
+
+          if (docTitleEl) {
+            var nextName = docPages[frontIndex].getAttribute("data-doc-name") || "";
+            if (prefersReducedMotion) {
+              docTitleEl.textContent = nextName;
+            } else {
+              docTitleEl.classList.add("is-changing");
+              window.setTimeout(function () {
+                docTitleEl.textContent = nextName;
+                docTitleEl.classList.remove("is-changing");
+              }, 260);
+            }
+          }
         };
 
         var cycleDocs = function () {
