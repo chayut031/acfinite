@@ -655,8 +655,76 @@
       }
     }
 
+    .board-head,
+    .board-body {
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .report-board.is-swapping .board-head,
+    .report-board.is-swapping .board-body {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
     .board-body {
       padding: 20px;
+    }
+
+    .board-foot {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 20px;
+      border: none;
+      border-top: 1px solid var(--line);
+      background: var(--mist);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .board-cycle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 600;
+      font-family: inherit;
+      transition: color var(--ease-out);
+    }
+
+    .board-foot:hover .board-cycle {
+      color: var(--sea-dark);
+    }
+
+    .board-cycle i {
+      font-size: 11px;
+      transition: transform 420ms ease;
+    }
+
+    .board-foot:active .board-cycle i {
+      transform: rotate(180deg);
+    }
+
+    .board-cycle-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .board-cycle-dots .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--line);
+      transition: background var(--ease-out), transform var(--ease-out);
+    }
+
+    .board-cycle-dots .dot.is-active {
+      background: var(--sea);
+      transform: scale(1.4);
     }
 
     .metric-grid {
@@ -1808,20 +1876,20 @@
           <div class="blob blob-a" aria-hidden="true"></div>
           <div class="blob blob-b" aria-hidden="true"></div>
           <div class="report-stack">
-            <div class="report-board">
+            <div class="report-board" id="reportBoard">
               <div class="board-head">
                 <div class="board-brand">
                   <img src="logo.png" alt="" />
                   <div>
-                    <strong>รายงานสรุปรายเดือน</strong><br />
-                    <span>ตัวอย่างรายงานที่เราจัดทำให้ลูกค้าทุกเดือน</span>
+                    <strong id="reportTitle">รายงานสรุปรายเดือน</strong><br />
+                    <span id="reportSubtitle">ตัวอย่างรายงานที่เราจัดทำให้ลูกค้าทุกเดือน</span>
                   </div>
                 </div>
-                <span class="status-pill">พร้อมยื่น</span>
+                <span class="status-pill" id="reportStatus">พร้อมยื่น</span>
               </div>
 
               <div class="board-body">
-                <div class="metric-grid">
+                <div class="metric-grid" id="reportMetrics">
                   <div class="metric enter" style="animation-delay: 560ms">
                     <span>ยอดขายเดือนนี้</span>
                     <strong>420,000</strong>
@@ -1844,7 +1912,7 @@
                   </div>
                 </div>
 
-                <div class="timeline">
+                <div class="timeline" id="reportTimeline">
                   <div class="timeline-row enter" style="animation-delay: 900ms">
                     <strong>ภ.พ.30</strong>
                     <span>ตรวจยอดขายและภาษีซื้อ</span>
@@ -1862,6 +1930,18 @@
                   </div>
                 </div>
               </div>
+
+              <button class="board-foot" type="button" id="cycleReport" aria-label="ดูตัวอย่างรายงานแบบอื่น">
+                <span class="board-cycle">
+                  <i class="fa-solid fa-shuffle"></i>
+                  ดูตัวอย่างรายงานแบบอื่น
+                </span>
+                <span class="board-cycle-dots" aria-hidden="true">
+                  <span class="dot is-active"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </span>
+              </button>
             </div>
           </div>
 
@@ -2291,6 +2371,134 @@
       }
 
       var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var reportVariants = [
+        {
+          title: "รายงานสรุปรายเดือน",
+          subtitle: "ตัวอย่างรายงานที่เราจัดทำให้ลูกค้าทุกเดือน",
+          status: "พร้อมยื่น",
+          metrics: [
+            { label: "ยอดขายเดือนนี้", value: "420,000", note: "บาท จากเอกสารขาย" },
+            { label: "ภาษีที่ต้องเตรียม", value: "21,000", note: "แจ้งก่อนกำหนดชำระ" },
+            { label: "เอกสารที่รับแล้ว", value: "180", note: "ใบซื้อ ขาย และค่าใช้จ่าย" },
+            { label: "สถานะงวดนี้", value: "Review", note: "รอตรวจรอบสุดท้าย" }
+          ],
+          timeline: [
+            { code: "ภ.พ.30", label: "ตรวจยอดขายและภาษีซื้อ", badge: "กำลังทำ", state: "is-doing" },
+            { code: "ภงด.53", label: "สรุปหัก ณ ที่จ่ายจากเอกสารจ่าย", badge: "ครบ", state: "is-done" },
+            { code: "รายงาน", label: "ยอดขาย ค่าใช้จ่าย และกำไรเบื้องต้น", badge: "ส่งให้ดู", state: "is-sent" }
+          ]
+        },
+        {
+          title: "สรุปผลประกอบการรายไตรมาส",
+          subtitle: "ตัวอย่างสไลด์ที่ใช้คุยกับเจ้าของกิจการทุกไตรมาส",
+          status: "พร้อมนัดคุย",
+          metrics: [
+            { label: "กำไรสุทธิไตรมาสนี้", value: "186,000", note: "บาท เทียบไตรมาสก่อน +12%" },
+            { label: "อัตรากำไรขั้นต้น", value: "38%", note: "ดีขึ้นจากไตรมาสก่อน" },
+            { label: "ค่าใช้จ่ายที่ควบคุมได้", value: "62,400", note: "ลดลงจากงวดก่อน" },
+            { label: "สถานะการวิเคราะห์", value: "พร้อม", note: "รอนัดประชุม" }
+          ],
+          timeline: [
+            { code: "นัดคุย", label: "ยืนยันวันประชุมกับเจ้าของกิจการ", badge: "ยืนยันแล้ว", state: "is-done" },
+            { code: "สรุปประเด็น", label: "ประเด็นสำคัญที่ควรตัดสินใจ", badge: "ครบ", state: "is-done" },
+            { code: "สไลด์", label: "สรุปวิเคราะห์สำหรับประชุม", badge: "ส่งให้ดู", state: "is-sent" }
+          ]
+        },
+        {
+          title: "เช็กลิสต์ก่อนยื่นภาษีสิ้นปี",
+          subtitle: "ตัวอย่างการเตรียมตัวก่อนถึงกำหนดยื่นภาษีประจำปี",
+          status: "ใกล้กำหนดยื่น",
+          metrics: [
+            { label: "รายได้รวมทั้งปี", value: "4,850,000", note: "บาท จากงบทดลอง" },
+            { label: "ภาษีเงินได้นิติบุคคล", value: "92,000", note: "ประมาณการเบื้องต้น" },
+            { label: "เอกสารที่ต้องเพิ่ม", value: "3", note: "รายการที่ยังรอ" },
+            { label: "กำหนดยื่นภาษี", value: "18 วัน", note: "นับจากวันนี้" }
+          ],
+          timeline: [
+            { code: "งบการเงิน", label: "ตรวจสอบความถูกต้องของงบ", badge: "ครบ", state: "is-done" },
+            { code: "คำนวณภาษี", label: "สรุปภาษีเงินได้นิติบุคคลประจำปี", badge: "กำลังทำ", state: "is-doing" },
+            { code: "เซ็นแบบภาษี", label: "นัดเซ็นแบบก่อนยื่นจริง", badge: "รอคิว", state: "is-sent" }
+          ]
+        }
+      ];
+
+      var reportIndex = 0;
+      var reportBoardEl = document.getElementById("reportBoard");
+      var reportTitleEl = document.getElementById("reportTitle");
+      var reportSubtitleEl = document.getElementById("reportSubtitle");
+      var reportStatusEl = document.getElementById("reportStatus");
+      var reportMetricsEl = document.getElementById("reportMetrics");
+      var reportTimelineEl = document.getElementById("reportTimeline");
+      var cycleReportBtn = document.getElementById("cycleReport");
+      var reportDots = cycleReportBtn ? cycleReportBtn.querySelectorAll(".dot") : [];
+
+      function escapeHtml(text) {
+        var div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function renderReport(index) {
+        var data = reportVariants[index];
+        if (reportTitleEl) reportTitleEl.textContent = data.title;
+        if (reportSubtitleEl) reportSubtitleEl.textContent = data.subtitle;
+        if (reportStatusEl) reportStatusEl.textContent = data.status;
+
+        if (reportMetricsEl) {
+          reportMetricsEl.innerHTML = data.metrics
+            .map(function (m) {
+              return (
+                '<div class="metric"><span>' +
+                escapeHtml(m.label) +
+                "</span><strong>" +
+                escapeHtml(m.value) +
+                "</strong><small>" +
+                escapeHtml(m.note) +
+                "</small></div>"
+              );
+            })
+            .join("");
+        }
+
+        if (reportTimelineEl) {
+          reportTimelineEl.innerHTML = data.timeline
+            .map(function (t) {
+              return (
+                '<div class="timeline-row"><strong>' +
+                escapeHtml(t.code) +
+                "</strong><span>" +
+                escapeHtml(t.label) +
+                '</span><span class="mini-badge ' +
+                t.state +
+                '">' +
+                escapeHtml(t.badge) +
+                "</span></div>"
+              );
+            })
+            .join("");
+        }
+
+        reportDots.forEach(function (dot, i) {
+          dot.classList.toggle("is-active", i === index);
+        });
+      }
+
+      if (cycleReportBtn && reportBoardEl) {
+        cycleReportBtn.addEventListener("click", function () {
+          if (prefersReducedMotion) {
+            reportIndex = (reportIndex + 1) % reportVariants.length;
+            renderReport(reportIndex);
+            return;
+          }
+          reportBoardEl.classList.add("is-swapping");
+          window.setTimeout(function () {
+            reportIndex = (reportIndex + 1) % reportVariants.length;
+            renderReport(reportIndex);
+            reportBoardEl.classList.remove("is-swapping");
+          }, 220);
+        });
+      }
 
       var progressBar = document.getElementById("scrollProgress");
       var topbarEl = document.querySelector(".topbar");
