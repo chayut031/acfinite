@@ -1128,6 +1128,12 @@
       padding: 18px;
       display: grid;
       gap: 8px;
+      border-color: rgba(179, 112, 60, 0.22);
+      background: linear-gradient(180deg, #fdf8f2 0%, #fbf3e9 100%);
+    }
+
+    .problem-item:hover {
+      border-color: rgba(179, 112, 60, 0.4);
     }
 
     .problem-item i,
@@ -1143,7 +1149,17 @@
       transition: transform var(--ease-out), background var(--ease-out), color var(--ease-out);
     }
 
-    .problem-item:hover i,
+    .problem-item i {
+      background: rgba(179, 112, 60, 0.14);
+      color: var(--amber);
+    }
+
+    .problem-item:hover i {
+      transform: scale(1.1) rotate(-6deg);
+      background: linear-gradient(135deg, #b3703c, #c98a52);
+      color: #fff;
+    }
+
     .service-card:hover .service-icon {
       transform: scale(1.1) rotate(-6deg);
       background: var(--grad-brand);
