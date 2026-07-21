@@ -492,7 +492,8 @@
       transition: transform var(--ease-out), box-shadow var(--ease-out), border-color var(--ease-out);
     }
 
-    .trust-item:hover {
+    .trust-item:hover,
+    .trust-item.is-pressed {
       transform: translateY(-3px);
       border-color: rgba(44, 74, 124, 0.28);
       box-shadow: var(--soft-shadow);
@@ -1112,14 +1113,18 @@
     }
 
     .problem-item:hover,
+    .problem-item.is-pressed,
     .service-card:hover,
-    .step-card:hover {
+    .service-card.is-pressed,
+    .step-card:hover,
+    .step-card.is-pressed {
       transform: translateY(-6px);
       border-color: rgba(44, 74, 124, 0.28);
       box-shadow: var(--shadow-md);
     }
 
-    .package-card:hover {
+    .package-card:hover,
+    .package-card.is-pressed {
       transform: translateY(-4px);
     }
 
@@ -1155,7 +1160,9 @@
     }
 
     .problem-item:hover i,
-    .service-card:hover .service-icon {
+    .problem-item.is-pressed i,
+    .service-card:hover .service-icon,
+    .service-card.is-pressed .service-icon {
       transform: scale(1.1) rotate(-6deg);
       background: var(--grad-brand);
       color: #fff;
@@ -1247,7 +1254,8 @@
       background: var(--grad-brand);
     }
 
-    .package-card.featured:hover {
+    .package-card.featured:hover,
+    .package-card.featured.is-pressed {
       box-shadow: 0 26px 60px rgba(44, 74, 124, 0.22);
     }
 
@@ -2653,6 +2661,34 @@
           }
         });
       }
+
+      var pressSelector = ".problem-item, .service-card, .step-card, .package-card, .trust-item";
+      var pressedCard = null;
+
+      function releasePressedCard() {
+        if (pressedCard) {
+          pressedCard.classList.remove("is-pressed");
+          pressedCard = null;
+        }
+      }
+
+      document.addEventListener(
+        "pointerdown",
+        function (event) {
+          if (event.pointerType === "mouse") return;
+          var card = event.target.closest(pressSelector);
+          if (!card) return;
+          releasePressedCard();
+          pressedCard = card;
+          card.classList.add("is-pressed");
+        },
+        { passive: true }
+      );
+
+      ["pointerup", "pointercancel", "pointerleave"].forEach(function (evt) {
+        document.addEventListener(evt, releasePressedCard, { passive: true });
+      });
+      document.addEventListener("scroll", releasePressedCard, { passive: true });
 
       var progressBar = document.getElementById("scrollProgress");
       var topbarEl = document.querySelector(".topbar");
