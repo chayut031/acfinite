@@ -328,20 +328,16 @@
       position: relative;
       overflow: hidden;
       background:
-        radial-gradient(620px circle at 84% 48%, rgba(29, 51, 87, 0.16), transparent 66%),
-        linear-gradient(115deg, rgba(44, 74, 124, 0.13), transparent 42%),
-        linear-gradient(180deg, #d9e3ee 0%, #e4ebf3 100%);
+        linear-gradient(152deg, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0) 48%),
+        linear-gradient(118deg, #d4e0eb 0%, #e7edf3 52%, #cedbe7 100%);
       border-bottom: 1px solid #c8d3e0;
     }
 
     .hero-wrap::before {
       content: "";
       position: absolute;
-      inset: -15% -10% auto -10%;
-      height: 620px;
-      background:
-        radial-gradient(560px circle at 12% 18%, rgba(44, 74, 124, 0.16), transparent 62%),
-        radial-gradient(480px circle at 88% 6%, rgba(91, 132, 184, 0.14), transparent 58%);
+      inset: 0;
+      background: linear-gradient(90deg, rgba(44, 74, 124, 0.045), transparent 42%, rgba(58, 92, 134, 0.055));
       pointer-events: none;
       z-index: 0;
     }
@@ -656,6 +652,7 @@
       width: 100%;
       max-width: 400px;
       aspect-ratio: 3 / 4;
+      margin-bottom: 34px;
       cursor: pointer;
     }
 
@@ -2731,6 +2728,46 @@
         display: none;
       }
 
+      .doc-stack-wrap {
+        padding-bottom: 14px;
+      }
+
+      .doc-stack {
+        margin-bottom: 52px;
+      }
+
+      .doc-page.pos-mid {
+        transform: translate3d(12px, 19px, 0) rotate(1.7deg) scale(0.985);
+        opacity: 0.94;
+        box-shadow: 0 12px 28px rgba(18, 22, 31, 0.1);
+      }
+
+      .doc-page.pos-back {
+        transform: translate3d(-9px, 36px, 0) rotate(-2deg) scale(0.97);
+        opacity: 0.84;
+        box-shadow: 0 10px 24px rgba(18, 22, 31, 0.08);
+      }
+
+      .doc-stack-hint {
+        position: relative;
+        z-index: 6;
+        padding: 8px 13px;
+        border: 1px solid rgba(44, 74, 124, 0.14);
+        border-radius: 999px;
+        background: #edf2f7;
+        box-shadow: 0 8px 18px rgba(29, 51, 87, 0.08);
+        animation: mobile-hint-pulse 2.4s ease-in-out 4;
+      }
+
+      .doc-stack-hint i {
+        animation: mobile-tap-bounce 1.6s ease-in-out infinite;
+      }
+
+      .doc-stack-wrap.has-interacted .doc-stack-hint,
+      .doc-stack-wrap.has-interacted .doc-stack-hint i {
+        animation: none;
+      }
+
       .section-head,
       .contact-layout {
         grid-template-columns: 1fr;
@@ -2796,6 +2833,16 @@
         flex-direction: column;
         align-items: flex-start;
       }
+    }
+
+    @keyframes mobile-hint-pulse {
+      0%, 100% { transform: translateY(0); box-shadow: 0 8px 18px rgba(29, 51, 87, 0.08); }
+      50% { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(29, 51, 87, 0.14); }
+    }
+
+    @keyframes mobile-tap-bounce {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-3px) rotate(-8deg); }
     }
 
     @media (max-width: 420px) {
@@ -3747,11 +3794,53 @@
           applyDocOrder();
         };
 
-        docStackEl.addEventListener("click", cycleDocs);
+        var docPreviewTimers = [];
+        var docStackWrap = docStackEl.closest(".doc-stack-wrap");
+
+        var cancelDocPreview = function () {
+          docPreviewTimers.forEach(function (timer) {
+            window.clearTimeout(timer);
+          });
+          docPreviewTimers = [];
+        };
+
+        var runDocPreview = function () {
+          if (docPreviewTimers.length) return;
+          [1700, 3400, 5100].forEach(function (delay) {
+            docPreviewTimers.push(window.setTimeout(cycleDocs, delay));
+          });
+        };
+
+        if (window.matchMedia("(max-width: 980px)").matches && !prefersReducedMotion) {
+          if ("IntersectionObserver" in window) {
+            var docPreviewObserver = new IntersectionObserver(
+              function (entries) {
+                entries.forEach(function (entry) {
+                  if (entry.isIntersecting) {
+                    runDocPreview();
+                    docPreviewObserver.unobserve(entry.target);
+                  }
+                });
+              },
+              { threshold: 0.55 }
+            );
+            docPreviewObserver.observe(docStackEl);
+          } else {
+            runDocPreview();
+          }
+        }
+
+        var handleDocInteraction = function () {
+          cancelDocPreview();
+          if (docStackWrap) docStackWrap.classList.add("has-interacted");
+          cycleDocs();
+        };
+
+        docStackEl.addEventListener("click", handleDocInteraction);
         docStackEl.addEventListener("keydown", function (event) {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            cycleDocs();
+            handleDocInteraction();
           }
         });
       }
