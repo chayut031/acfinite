@@ -2626,89 +2626,6 @@
       }
     }
 
-    .line-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(18, 22, 31, 0.66);
-      backdrop-filter: blur(8px);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 240ms ease, visibility 240ms ease;
-    }
-
-    .line-modal.is-open {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    .modal-panel {
-      position: relative;
-      width: min(100%, 360px);
-      padding: 26px;
-      border-radius: var(--radius-lg);
-      background: #fff;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
-      text-align: center;
-      transform: translateY(16px) scale(0.96);
-      opacity: 0;
-      transition: transform var(--ease-out), opacity var(--ease-out);
-    }
-
-    .line-modal.is-open .modal-panel {
-      transform: none;
-      opacity: 1;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 34px;
-      height: 34px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-      color: var(--muted);
-      cursor: pointer;
-      transition: transform var(--ease-out), border-color var(--ease-out), color var(--ease-out);
-    }
-
-    .modal-close:hover {
-      transform: rotate(90deg);
-      border-color: #c2c8d1;
-      color: var(--ink);
-    }
-
-    .modal-panel h2 {
-      margin: 12px 0 6px;
-      font-size: 22px;
-    }
-
-    .modal-panel p {
-      margin-bottom: 16px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .qr {
-      width: 210px;
-      height: 210px;
-      object-fit: contain;
-      margin: 0 auto 18px;
-      display: block;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 8px;
-      background: #fff;
-    }
-
     @media (max-width: 980px) {
       .nav-links {
         display: none;
@@ -2958,10 +2875,10 @@
           <i class="fa-regular fa-file-lines"></i>
           ใบเสนอราคา
         </a>
-        <button class="btn line" type="button" data-open-line>
+        <a class="btn line" href="https://line.me/ti/p/_MKHqKsBEM" target="_blank" rel="noopener">
           <i class="fa-brands fa-line"></i>
           @LINE
-        </button>
+        </a>
       </div>
     </div>
   </header>
@@ -2978,10 +2895,10 @@
           </p>
 
           <div class="hero-actions enter enter-d4">
-            <button class="btn line" type="button" data-open-line>
+            <a class="btn line" href="https://line.me/ti/p/_MKHqKsBEM" target="_blank" rel="noopener">
               <i class="fa-brands fa-line"></i>
               แอดไลน์ปรึกษาฟรี
-            </button>
+            </a>
             <a class="btn secondary" href="#packages">
               <i class="fa-solid fa-table-list"></i>
               ดูแพ็กเกจ
@@ -3398,9 +3315,9 @@
               <li><i class="fa-solid fa-check"></i><span>สรุปยอดขายและค่าใช้จ่ายรายเดือน</span></li>
               <li><i class="fa-solid fa-check"></i><span>ตอบคำถามทั่วไปผ่านแชตหรืออีเมล</span></li>
             </ul>
-            <button class="btn secondary" type="button" data-open-line>
+            <a class="btn secondary" href="https://line.me/ti/p/_MKHqKsBEM" target="_blank" rel="noopener">
               สอบถาม Starter
-            </button>
+            </a>
           </article>
 
           <article class="package-card featured reveal" data-reveal-delay="120">
@@ -3417,9 +3334,9 @@
               <li><i class="fa-solid fa-check"></i><span>สรุปตัวเลขสำหรับเจ้าของกิจการเดือนละครั้ง</span></li>
               <li><i class="fa-solid fa-check"></i><span>ปรึกษาออนไลน์เป็นรอบเพื่อวางแผนภาษี</span></li>
             </ul>
-            <button class="btn line" type="button" data-open-line>
+            <a class="btn line" href="https://line.me/ti/p/_MKHqKsBEM" target="_blank" rel="noopener">
               คุยแพ็กเกจ Growth
-            </button>
+            </a>
           </article>
         </div>
       </div>
@@ -3470,10 +3387,6 @@
           </p>
 
           <div class="contact-methods">
-            <a class="contact-method" href="https://line.me/ti/p/@360cmuko" target="_blank" rel="noopener">
-              <i class="fa-brands fa-line"></i>
-              <span>LINE: @360cmuko</span>
-            </a>
             <a class="contact-method" href="tel:0805491449">
               <i class="fa-solid fa-phone"></i>
               <span>โทร: 08-0549-1449</span>
@@ -3484,14 +3397,14 @@
             </a>
           </div>
 
-          <button class="btn line" type="button" data-open-line>
+          <a class="btn line" href="https://line.me/ti/p/_MKHqKsBEM" target="_blank" rel="noopener">
             <i class="fa-brands fa-line"></i>
-            เปิด QR Code LINE
-          </button>
+            เพิ่มเพื่อนทาง LINE
+          </a>
         </div>
 
         <div class="contact-card reveal" data-reveal-delay="120">
-          <form id="contactForm" class="form-grid">
+          <div class="form-grid">
             <div class="field">
               <label for="name">ชื่อ-นามสกุล</label>
               <input id="name" name="name" type="text" placeholder="เช่น คุณสมชาย" />
@@ -3521,15 +3434,15 @@
               <textarea id="message" name="message" placeholder="เช่น วางแผนภาษี จัดระบบเอกสาร หรือจดบริษัท"></textarea>
             </div>
             <div class="field full">
-              <button class="btn line" type="submit">
+              <a class="btn line" href="https://line.me/ti/p/_MKHqKsBEM" target="_blank" rel="noopener">
                 <i class="fa-brands fa-line"></i>
-                ส่งข้อมูลทาง LINE
-              </button>
+                เพิ่มเพื่อนทาง LINE
+              </a>
               <p class="form-note">
-                ปุ่มนี้จะเปิด LINE พร้อมข้อความจากฟอร์ม เพื่อให้คุณตรวจสอบก่อนส่งจริง
+                เพิ่มเพื่อนแล้วส่งรายละเอียดผ่านแชต LINE เพื่อรับคำปรึกษา
               </p>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </section>
@@ -3542,84 +3455,12 @@
     </div>
   </footer>
 
-  <div id="lineModal" class="line-modal" aria-hidden="true">
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="lineTitle">
-      <button class="modal-close" type="button" data-close-line aria-label="ปิดหน้าต่าง">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      <img class="qr" src="qr-line.png" alt="LINE QR Code @360cmuko" />
-      <h2 id="lineTitle">เพิ่มเพื่อนผ่าน LINE</h2>
-      <p>สแกน QR Code หรือเปิดผ่านแอป LINE เพื่อปรึกษาเบื้องต้น</p>
-      <a class="btn line" href="https://line.me/ti/p/@360cmuko" target="_blank" rel="noopener">
-        <i class="fa-brands fa-line"></i>
-        เปิดผ่านแอป LINE
-      </a>
-    </div>
-  </div>
-
   <script>
     (function () {
-      var modal = document.getElementById("lineModal");
-      var openButtons = document.querySelectorAll("[data-open-line]");
-      var closeButton = document.querySelector("[data-close-line]");
-      var form = document.getElementById("contactForm");
       var year = document.getElementById("year");
 
       if (year) {
         year.textContent = new Date().getFullYear();
-      }
-
-      function openLineModal() {
-        if (!modal) return;
-        modal.classList.add("is-open");
-        modal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-      }
-
-      function closeLineModal() {
-        if (!modal) return;
-        modal.classList.remove("is-open");
-        modal.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = "";
-      }
-
-      openButtons.forEach(function (button) {
-        button.addEventListener("click", openLineModal);
-      });
-
-      if (closeButton) {
-        closeButton.addEventListener("click", closeLineModal);
-      }
-
-      if (modal) {
-        modal.addEventListener("click", function (event) {
-          if (event.target === modal) {
-            closeLineModal();
-          }
-        });
-      }
-
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-          closeLineModal();
-        }
-      });
-
-      if (form) {
-        form.addEventListener("submit", function (event) {
-          event.preventDefault();
-          var data = new FormData(form);
-          var lines = [
-            "สวัสดีค่ะ/ครับ สนใจบริการ Acfinite Accounting",
-            "ชื่อ: " + (data.get("name") || "-"),
-            "ช่องทางติดต่อกลับ: " + (data.get("reply") || "-"),
-            "ประเภทธุรกิจ: " + (data.get("business") || "-"),
-            "ยอดขายต่อเดือน: " + (data.get("revenue") || "-"),
-            "รายละเอียด: " + (data.get("message") || "-")
-          ];
-          var url = "https://line.me/R/oaMessage/@360cmuko/?" + encodeURIComponent(lines.join("\n"));
-          window.open(url, "_blank", "noopener");
-        });
       }
 
       var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
