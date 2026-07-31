@@ -2706,10 +2706,19 @@
 
       .nav {
         min-height: 66px;
+        gap: 10px;
       }
 
       .brand-name span,
-      .quote-btn {
+      .nav-actions .icon-link {
+        display: none;
+      }
+
+      .nav-actions {
+        flex: 0 0 auto;
+      }
+
+      .nav-actions .line-label {
         display: none;
       }
 
@@ -2814,7 +2823,7 @@
 
       .brand-name strong {
         font-size: 13px;
-        max-width: 128px;
+        max-width: 100px;
       }
 
       .hero-actions .btn {
@@ -2823,6 +2832,10 @@
     }
 
     @media (max-width: 359px) {
+      .brand-name {
+        display: none;
+      }
+
       .icon-link {
         display: none;
       }
@@ -2875,9 +2888,15 @@
           <i class="fa-regular fa-file-lines"></i>
           ใบเสนอราคา
         </a>
-        <a class="btn line" href="https://line.me/ti/p/_MKHqKsBEM" target="_blank" rel="noopener">
+        <a
+          class="btn line"
+          href="https://line.me/ti/p/_MKHqKsBEM"
+          target="_blank"
+          rel="noopener"
+          aria-label="เพิ่มเพื่อนทาง LINE"
+        >
           <i class="fa-brands fa-line"></i>
-          @LINE
+          <span class="line-label">@LINE</span>
         </a>
       </div>
     </div>
