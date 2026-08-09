@@ -2709,31 +2709,73 @@
         gap: 10px;
       }
 
-      .brand-name span,
-      .nav-actions .icon-link {
+      .brand-name span {
         display: none;
       }
 
       .nav-actions {
         flex: 0 0 auto;
+        gap: 7px;
       }
 
+      .nav-actions .quote-label,
       .nav-actions .line-label {
         display: none;
       }
 
+      .nav-actions .icon-link,
+      .nav-actions .quote-btn,
       .nav-actions .btn.line {
-        width: 42px;
-        height: 42px;
-        min-height: 42px;
+        width: 40px;
+        height: 40px;
+        min-height: 40px;
         padding: 0;
         border-radius: 50%;
-        flex: 0 0 42px;
+        flex: 0 0 40px;
+        border: 1px solid rgba(44, 74, 124, 0.14);
+        box-shadow: 0 5px 14px rgba(18, 22, 31, 0.08);
       }
 
-      .icon-link {
-        width: 34px;
-        height: 34px;
+      .nav-actions .btn::after {
+        display: none;
+      }
+
+      .nav-actions .icon-facebook {
+        order: 2;
+        color: #1877f2;
+      }
+
+      .nav-actions .icon-tiktok {
+        order: 3;
+        color: #111;
+      }
+
+      .nav-actions .quote-btn {
+        order: 1;
+        color: var(--sea-dark);
+        background: #fff;
+      }
+
+      .nav-actions .btn.line {
+        order: 4;
+        color: #079447;
+        background: rgba(6, 199, 85, 0.11);
+        border-color: rgba(6, 199, 85, 0.2);
+        box-shadow: 0 5px 14px rgba(6, 199, 85, 0.12);
+      }
+
+      .nav-actions .btn.line:hover {
+        color: #057a3b;
+        background: rgba(6, 199, 85, 0.16);
+        box-shadow: 0 5px 14px rgba(6, 199, 85, 0.12);
+      }
+
+      .nav-actions > a:hover {
+        transform: none;
+      }
+
+      .nav-actions > a:active {
+        transform: scale(0.94);
       }
 
       .brand img {
@@ -2815,25 +2857,17 @@
       }
 
       .nav-actions {
-        gap: 6px;
+        gap: 5px;
       }
 
-      .nav-actions .btn {
-        min-height: 38px;
-        padding: 0 12px;
-        font-size: 13px;
-      }
-
+      .nav-actions .icon-link,
+      .nav-actions .quote-btn,
       .nav-actions .btn.line {
-        width: 38px;
-        height: 38px;
-        min-height: 38px;
-        flex-basis: 38px;
-      }
-
-      .icon-link {
-        width: 30px;
-        height: 30px;
+        width: 36px;
+        height: 36px;
+        min-height: 36px;
+        padding: 0;
+        flex-basis: 36px;
         font-size: 13px;
       }
 
@@ -2852,9 +2886,6 @@
         display: none;
       }
 
-      .icon-link {
-        display: none;
-      }
     }
   </style>
 </head>
@@ -2880,7 +2911,7 @@
 
       <div class="nav-actions">
         <a
-          class="icon-link"
+          class="icon-link icon-facebook"
           href="https://www.facebook.com/profile.php?id=61587195389202"
           target="_blank"
           rel="noopener"
@@ -2900,9 +2931,10 @@
           href="https://drive.google.com/drive/folders/1fhuJTOmwPB66gtrKiov4Q5SAREndV3ad?usp=sharing"
           target="_blank"
           rel="noopener"
+          aria-label="เปิดใบเสนอราคา"
         >
           <i class="fa-regular fa-file-lines"></i>
-          ใบเสนอราคา
+          <span class="quote-label">ใบเสนอราคา</span>
         </a>
         <a
           class="btn line"
